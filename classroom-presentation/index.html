@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f8">
+  <title>Organizational Structures | 3D Classroom</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./overview-pages.css">
+  <link rel="stylesheet" href="./mobile-layout.css">
+  <script>
+    // Surface module/network startup failures directly on the page for easier diagnosis.
+    function showStartupError(message) {
+      let box = document.getElementById('startup-error');
+      if (!box) {
+        box = document.createElement('pre');
+        box.id = 'startup-error';
+        box.style.cssText = 'position:fixed;z-index:99999;left:16px;right:16px;top:16px;max-height:35vh;overflow:auto;white-space:pre-wrap;background:#fff1f0;color:#7f1d1d;border:2px solid #b42318;border-radius:10px;padding:14px;font:14px/1.45 monospace;box-shadow:0 8px 30px #0003';
+        document.body.append(box);
+      }
+      box.textContent = 'Application startup error:\n' + message;
+    }
+    window.addEventListener('error', event => {
+      if (/ResizeObserver loop completed with undelivered notifications/i.test(event.message || '')) return;
+      showStartupError(event.message || event.target?.src || 'A script failed to load.');
+    });
+    window.addEventListener('unhandledrejection', event => showStartupError(event.reason?.stack || event.reason?.message || String(event.reason)));
+  </script>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+  </script>
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+  <nav class="page-nav" aria-label="Presentation pages">
+    <a href="./introduction.html">Introduction</a>
+    <a class="is-current" href="./index.html" aria-current="page">3D Presentation</a>
+    <a href="./conclusion.html">Conclusion</a>
+  </nav>
+  <main class="app-shell">
+    <section class="stage" aria-label="Interactive 3D organizational structure model">
+      <header class="stage-header">
+        <div><p class="eyebrow">ORGANIZATION DESIGN · 3D CLASSROOM</p><h1>How work is structured</h1></div>
+        <button class="presenter-toggle" id="presenter-toggle" type="button" aria-pressed="false">Presenter mode</button>
+      </header>
+      <nav class="structure-tabs" aria-label="Choose an organization structure" role="tablist">
+        <button class="structure-tab is-active" role="tab" aria-selected="true" data-structure="tall">01&nbsp; Tall</button>
+        <button class="structure-tab" role="tab" aria-selected="false" data-structure="flat">02&nbsp; Flat</button>
+        <button class="structure-tab" role="tab" aria-selected="false" data-structure="network">03&nbsp; Network</button>
+        <button class="structure-tab" role="tab" aria-selected="false" data-structure="virtual">04&nbsp; Virtual</button>
+      </nav>
+      <div class="room-toolbar">
+        <nav id="room-nav" class="room-nav" aria-label="Navigate rooms and zones"></nav>
+        <button id="birdseye-button" type="button" class="birdseye-button">Bird’s eye view</button>
+      </div>
+      <div class="canvas-wrap" id="canvas-wrap">
+        <canvas id="scene" aria-label="3D scene. Drag to orbit, scroll to zoom, select a person for their role."></canvas>
+        <div class="scene-caption"><span class="live-dot"></span><span id="scene-caption">Clear reporting lines · multiple management tiers</span></div>
+        <div class="scene-hint">Drag to explore&nbsp; · &nbsp;Select a person or desk for details</div>
+        <div id="speech-bubble" class="speech-bubble" role="status" aria-live="polite" hidden></div>
+        <aside id="figure-card" class="figure-card" aria-live="polite" hidden>
+          <button id="figure-close" aria-label="Close role details">×</button>
+          <strong id="figure-role"></strong><span id="figure-detail"></span>
+        </aside>
+        <div id="inspection-backdrop" class="inspection-backdrop" hidden>
+          <section class="inspection-modal" role="dialog" aria-modal="true" aria-labelledby="inspection-name">
+            <button id="inspection-close" class="inspection-close" type="button" aria-label="Close Inspection (X)" title="Close Inspection (X)">×</button>
+            <p class="eyebrow">WORKPLACE INSPECTION</p><h2 id="inspection-name"></h2>
+<p id="inspection-role" class="inspection-role"></p>
+            <p id="greeting-line" class="greeting-line" hidden></p>
+            <dl><dt>Reports to / connections</dt><dd id="inspection-reports"></dd><dt>Responsibilities</dt><dd id="inspection-detail"></dd></dl>
+          </section>
+        </div>
+      </div>
+      <footer class="stage-footer"><span>Organizational design, made visible</span><span>Use the tabs to compare structures</span></footer>
+    </section>
+    <aside class="lesson-panel" aria-label="Lesson content">
+      <div class="lesson-heading"><p class="eyebrow">THE LESSON</p><h2 id="lesson-title">Tall structure</h2><p id="lesson-deck" class="lesson-deck"></p></div>
+      <div class="metrics" id="metrics" aria-label="Structure dimensions"></div>
+      <div class="accordion" id="accordion"></div>
+      <div class="interaction-note"><span aria-hidden="true">↗</span><p>Select any person in the scene to see their role and place in the structure.</p></div>
+    </aside>
+  </main>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Three.js Classroom Visualizer"
+  short_description: "Build and improve interactive Three.js educational scenes"
+  default_prompt: "Use -classroom to build or refine the Three.js organizational-structure visualizer."

@@ -1,0 +1,34 @@
+/* Shared navigation and styles for the introduction and conclusion slides. */
+.page-nav{position:fixed;z-index:200;top:12px;right:16px;display:flex;gap:6px;padding:5px;border:1px solid #c6d2dd;border-radius:13px;background:rgba(255,255,255,.96);box-shadow:0 5px 18px #102b4215}
+.page-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-radius:9px;color:#173b59;font:700 14px/1.2 system-ui,sans-serif;text-decoration:none}
+.page-nav a:hover,.page-nav a:focus-visible{background:#edf4f8;outline:2px solid #6a91ad;outline-offset:1px}
+.page-nav a.is-current{background:#183f60;color:#fff}
+.overview-page{--ink:#17212b;--muted:#334155;--blue:#183f60;--line:#cfdae3;min-height:100vh;margin:0;background:radial-gradient(ellipse at 82% 8%,#dfeaf1 0,transparent 35%),linear-gradient(145deg,#f8fafb,#edf2f5);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.overview-page *{box-sizing:border-box}
+.overview-wrap{width:min(1160px,calc(100% - 56px));margin:0 auto;padding:96px 0 64px}
+.overview-kicker{margin:0 0 12px;color:#17496b;font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.overview-title{max-width:900px;margin:0;color:#111827;font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:-.045em}
+.overview-lead{max-width:920px;margin:24px 0 0;color:#253446;font-size:clamp(20px,2vw,25px);line-height:1.58}
+.overview-chips{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0 38px;padding:0;list-style:none}
+.overview-chips li{padding:10px 15px;border:1px solid #bfccd6;border-radius:999px;background:#fff;color:#1e3447;font-size:16px;font-weight:700}
+.overview-panel{margin-top:34px;padding:30px;border:1px solid #cbd6df;border-radius:22px;background:rgba(255,255,255,.86);box-shadow:0 16px 44px #183f6010}
+.overview-panel h2{margin:0 0 9px;font-size:clamp(28px,3vw,38px);letter-spacing:-.025em}
+.overview-panel-intro{margin:0 0 22px;color:#334155;font-size:19px;line-height:1.5}
+.team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.team-member{display:flex;align-items:center;gap:14px;min-height:82px;padding:15px 17px;border:1px solid #d3dde5;border-radius:14px;background:#f8fafb}
+.team-number{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#e4eef5;color:#173f60;font-size:16px;font-weight:800}
+.team-name{display:block;color:#17212b;font-size:19px;font-weight:750}
+.team-id{display:block;margin-top:3px;color:#334155;font-size:15px;font-weight:650;letter-spacing:.035em}
+.overview-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.overview-button{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 22px;border:1px solid #173f60;border-radius:12px;background:#173f60;color:#fff;font-size:18px;font-weight:750;text-decoration:none;transition:transform .18s ease,background .18s ease}
+.overview-button:hover{transform:translateY(-2px);background:#24577d}
+.overview-button.secondary{background:#fff;color:#173f60}
+.overview-button.secondary:hover{background:#edf4f8}
+.conclusion-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+.conclusion-card{padding:22px;border:1px solid #cfdae3;border-radius:16px;background:#fff}
+.conclusion-card h3{margin:0 0 8px;color:#173f60;font-size:22px}
+.conclusion-card p{margin:0;color:#263747;font-size:18px;line-height:1.55}
+.takeaway{margin-top:20px;padding:23px 25px;border-left:5px solid #34769e;border-radius:8px 14px 14px 8px;background:#e8f1f6;color:#172b3d;font-size:20px;line-height:1.55}
+.overview-footer{margin-top:30px;color:#334155;font-size:15px}
+@media(max-width:760px){.page-nav{position:sticky;top:0;right:auto;justify-content:center;margin:0;padding:7px;border-width:0 0 1px;border-radius:0}.page-nav a{flex:1;padding:0 8px;font-size:13px}.overview-wrap{width:min(100% - 32px,600px);padding:38px 0 44px}.overview-panel{padding:22px}.team-grid{grid-template-columns:1fr 1fr}.conclusion-grid{grid-template-columns:1fr}}
+@media(max-width:460px){.team-grid{grid-template-columns:1fr}.team-member{min-height:72px}.overview-chips li{font-size:14px}}
