@@ -156,3 +156,84 @@
   .scene-caption { max-width: calc(100% - 20px); font-size: 12px; }
   .lesson-panel { padding: 18px 16px; }
 }
+
+/* Final layout overrides for narrow touch screens. Keep navigation anchored
+   at the left edge and prevent the tab row from being cropped. */
+@media (max-width: 760px) {
+  .app-shell { width: 100%; max-width: 100vw; overflow-x: clip; }
+  .stage { box-sizing: border-box; width: 100%; min-width: 0; padding: 12px 14px; }
+  .stage-header { width: 100%; min-width: 0; flex-wrap: wrap; gap: 10px; }
+  .stage-header > div { min-width: 0; max-width: 100%; }
+  .stage-header .eyebrow { font-size: 11px; letter-spacing: .12em; }
+  .stage-header h1 { margin: 3px 0; font-size: clamp(25px, 7vw, 34px); line-height: 1.08; }
+  .presenter-toggle { margin-left: auto; }
+  .structure-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%; min-width: 0; gap: 7px; margin: 10px 0;
+  }
+  .structure-tab { width: 100%; min-width: 0; justify-content: center; white-space: nowrap; }
+  .room-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center; gap: 8px; width: 100%; min-width: 0; margin: 6px 0 10px;
+  }
+  .room-nav {
+    display: flex; width: 100%; min-width: 0; max-width: 100%;
+    justify-content: flex-start; align-items: center; flex-wrap: nowrap;
+    overflow-x: auto; overflow-y: hidden; scroll-padding-inline: 4px;
+    overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch;
+    margin: 0; padding: 2px 4px 8px 0; box-sizing: border-box;
+  }
+  .room-nav button { flex: 0 0 auto; white-space: nowrap; }
+  .birdseye-button { white-space: nowrap; }
+  .canvas-wrap { width: 100%; height: min(43svh, 430px); min-height: 270px; flex: 0 0 auto; }
+  .stage-footer { display: flex; flex-wrap: wrap; gap: 5px 16px; font-size: 13px; }
+  .lesson-panel { box-sizing: border-box; width: 100%; min-width: 0; padding: 20px 16px 28px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric { min-width: 0; }
+  .metric-value { overflow-wrap: anywhere; }
+}
+
+/* Landscape phones get the requested presentation view: scene on the left,
+   lesson on the right, each constrained to the actual viewport height. */
+@media (max-width: 950px) and (orientation: landscape) {
+  body:has(.app-shell) { width: 100%; height: 100%; overflow: hidden; }
+  .app-shell {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.12fr) minmax(270px, .88fr);
+    width: 100vw; height: 100svh; min-height: 0; max-height: 100svh;
+    overflow: hidden;
+  }
+  .stage {
+    display: flex; flex-direction: column; box-sizing: border-box;
+    width: 100%; height: 100%; min-width: 0; min-height: 0;
+    padding: 8px 10px; overflow: hidden;
+  }
+  .stage-header { flex: 0 0 auto; align-items: center; gap: 5px; }
+  .stage-header h1 { font-size: clamp(20px, 4.2vh, 29px); }
+  .stage-header .eyebrow { font-size: 9px; }
+  .presenter-toggle { padding: 6px 8px; font-size: 12px; }
+  .structure-tabs {
+    display: flex; flex: 0 0 auto; flex-wrap: nowrap; gap: 4px;
+    width: 100%; min-width: 0; overflow-x: auto; margin: 4px 0;
+  }
+  .structure-tab { flex: 0 0 auto; width: auto; min-height: 34px; padding: 5px 8px; font-size: 12px; }
+  .room-toolbar { flex: 0 0 auto; grid-template-columns: minmax(0, 1fr) auto; gap: 5px; margin: 3px 0 5px; }
+  .room-nav button, .birdseye-button { min-height: 32px; padding: 4px 7px; font-size: 11px; }
+  .canvas-wrap { flex: 1 1 auto; width: 100%; height: auto; min-height: 0; }
+  .stage-footer { flex: 0 0 auto; padding: 4px 0 0; font-size: 10px; }
+  .lesson-panel {
+    box-sizing: border-box; width: 100%; height: 100%; min-width: 0; min-height: 0;
+    overflow-x: hidden; overflow-y: auto; padding: 14px 16px;
+  }
+  .lesson-heading .eyebrow { font-size: 10px; }
+  .lesson-heading h2 { font-size: clamp(23px, 4.5vh, 31px); }
+  .lesson-deck, .accordion-content { font-size: clamp(14px, 2.6vh, 17px); line-height: 1.4; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric { padding: 8px; }
+  .metric-label { font-size: 10px; }
+  .metric-value { font-size: 14px; }
+  .accordion-trigger { min-height: 42px; font-size: 16px; }
+  .interaction-note { font-size: 13px; }
+}
