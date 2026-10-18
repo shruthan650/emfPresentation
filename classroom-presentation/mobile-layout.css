@@ -237,3 +237,44 @@
   .accordion-trigger { min-height: 42px; font-size: 16px; }
   .interaction-note { font-size: 13px; }
 }
+
+/* Portrait phones: controls and theory follow the 3D model in one scrollable
+   column. Room choices are intentionally stacked, one per line. */
+@media (max-width: 760px) and (orientation: portrait) {
+  body:has(.app-shell) { height: auto; min-height: 100%; overflow-y: auto; overflow-x: hidden; }
+  .app-shell {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch;
+    width: 100%; height: auto !important; min-height: 0 !important;
+    max-height: none !important; overflow: visible !important;
+  }
+  .stage {
+    display: flex; flex: 0 0 auto; flex-direction: column;
+    width: 100%; height: auto; min-height: 0; overflow: visible;
+  }
+  .room-toolbar {
+    display: flex; flex-direction: column; align-items: stretch;
+    width: 100%; gap: 7px; margin: 6px 0 10px;
+  }
+  .room-nav {
+    display: flex; flex-direction: column; align-items: stretch;
+    width: 100%; max-width: none; max-height: none; gap: 7px;
+    overflow: visible; padding: 0; margin: 0;
+  }
+  .room-nav button, .birdseye-button {
+    display: flex; align-items: center; justify-content: flex-start;
+    width: 100%; min-height: 44px; white-space: normal;
+    box-sizing: border-box;
+  }
+  .canvas-wrap { flex: 0 0 auto; width: 100%; height: 40svh; min-height: 260px; max-height: 410px; }
+  .stage-footer { flex: 0 0 auto; }
+  .lesson-panel {
+    display: block !important; flex: 0 0 auto;
+    width: 100%; height: auto !important; min-height: 0; max-height: none;
+    overflow: visible !important; padding: 22px 16px 34px;
+    box-sizing: border-box;
+  }
+  .accordion { overflow: visible; }
+  .accordion-item { width: 100%; }
+}

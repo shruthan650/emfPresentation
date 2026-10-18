@@ -256,6 +256,9 @@ function resize() {
   if (!width || !height) return;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
+  // Widen the view on portrait screens so broad structures are not cropped
+  // by the narrow phone viewport. Restore the presentation FOV in landscape.
+  camera.fov = camera.aspect < 1 ? Math.min(65, 38 / camera.aspect) : 38;
   camera.updateProjectionMatrix();
 }
 let resizeFrame = 0;
