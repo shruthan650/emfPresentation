@@ -31,5 +31,13 @@ const lessons={
 export function initUI({onChange,onPresenterToggle}){
  const tabs=[...document.querySelectorAll('.structure-tab')],title=document.querySelector('#lesson-title'),deck=document.querySelector('#lesson-deck'),metrics=document.querySelector('#metrics'),accordion=document.querySelector('#accordion'),caption=document.querySelector('#scene-caption'),presenter=document.querySelector('#presenter-toggle');
  function select(name){const data=lessons[name];if(!data)return;tabs.forEach(t=>{const active=t.dataset.structure===name;t.classList.toggle('is-active',active);t.setAttribute('aria-selected',String(active))});title.textContent=data.title;deck.textContent=data.deck;caption.textContent=data.caption;metrics.innerHTML=data.metrics.map(([k,v])=>`<div class="metric"><span class="metric-label">${k}</span><span class="metric-value">${v}</span></div>`).join('');accordion.innerHTML=data.sections.map(([heading,body],i)=>`<section class="accordion-item"><button class="accordion-trigger" id="acc-trigger-${i}" aria-expanded="${i===0}" aria-controls="acc-panel-${i}"><span><span class="number">0${i+1} /</span> ${heading}</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="accordion-content" id="acc-panel-${i}" role="region" aria-labelledby="acc-trigger-${i}" ${i===0?'':'hidden'}>${body}</div></section>`).join('');accordion.querySelectorAll('.accordion-trigger').forEach(button=>button.addEventListener('click',()=>{const expanded=button.getAttribute('aria-expanded')==='true';accordion.querySelectorAll('.accordion-trigger').forEach(b=>{b.setAttribute('aria-expanded','false');document.getElementById(b.getAttribute('aria-controls')).hidden=true});if(!expanded){button.setAttribute('aria-expanded','true');document.getElementById(button.getAttribute('aria-controls')).hidden=false}}));onChange?.(name)}
+ const mobileModelToggle=document.querySelector('#mobile-model-toggle');
+ mobileModelToggle?.addEventListener('click',()=>{
+  const active=document.body.classList.toggle('mobile-model-mode');
+  mobileModelToggle.setAttribute('aria-pressed',String(active));
+  mobileModelToggle.textContent=active?'×':'3D models';
+  mobileModelToggle.setAttribute('aria-label',active?'Exit full-screen 3D view':'Open full-screen 3D models');
+  window.dispatchEvent(new Event('resize'));
+ });
  tabs.forEach(t=>t.addEventListener('click',()=>select(t.dataset.structure)));presenter.addEventListener('click',()=>{const active=document.body.classList.toggle('presenter-mode');presenter.setAttribute('aria-pressed',String(active));onPresenterToggle?.(active)});document.querySelector('#figure-close').addEventListener('click',()=>document.querySelector('#figure-card').hidden=true);select('tall');return {select,lessons};
 }

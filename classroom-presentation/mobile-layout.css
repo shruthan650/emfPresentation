@@ -278,3 +278,146 @@
   .accordion { overflow: visible; }
   .accordion-item { width: 100%; }
 }
+
+/* A selected person's inspection is a compact bottom sheet on phones, not a
+   full-screen white page. Keep the model visible behind the translucent scrim. */
+@media (max-width: 950px) {
+  .inspection-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 12px 12px max(12px, env(safe-area-inset-bottom));
+    background: rgb(17 24 39 / 20%);
+    pointer-events: auto;
+  }
+  .inspection-backdrop[hidden] { display: none !important; }
+  .inspection-modal {
+    position: relative;
+    display: block;
+    flex: 0 1 auto;
+    width: min(100%, 560px);
+    height: auto !important;
+    max-height: min(68svh, 560px) !important;
+    margin: 0 auto;
+    padding: 24px 22px 22px;
+    overflow: auto;
+    border: 1px solid #cbd5df;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 16px 48px rgb(15 23 42 / 24%);
+    overscroll-behavior: contain;
+  }
+  .inspection-modal h2 { margin: 4px 48px 8px 0; }
+  .inspection-modal dl { margin-bottom: 0; }
+  .inspection-close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid #b9c8d5;
+    border-radius: 50%;
+    background: #f2f6f9;
+    color: #172b3d;
+    font-size: 28px;
+    line-height: 1;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 950px) and (orientation: landscape) {
+  .inspection-backdrop { align-items: center; }
+  .inspection-modal { max-height: 82svh !important; }
+}
+
+/* Optional immersive 3D view, activated by the mobile-only "3D models" button. */
+.stage-header-actions { display: flex; align-items: center; gap: 8px; }
+.mobile-model-toggle { display: none; }
+@media (max-width: 950px) {
+  .stage-header-actions { margin-left: auto; }
+  .mobile-model-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #1d4564;
+    border-radius: 10px;
+    background: #1d4564;
+    color: white;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  body.mobile-model-mode { overflow: hidden !important; }
+  body.mobile-model-mode .app-shell {
+    position: fixed !important;
+    z-index: 900;
+    inset: 0 !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: #eef2f5;
+  }
+  body.mobile-model-mode .stage {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  body.mobile-model-mode .structure-tabs,
+  body.mobile-model-mode .room-toolbar,
+  body.mobile-model-mode .stage-footer,
+  body.mobile-model-mode .lesson-panel { display: none !important; }
+  body.mobile-model-mode .stage-header { display: block !important; position: static !important; }
+  body.mobile-model-mode .stage-header > div,
+  body.mobile-model-mode .presenter-toggle { display: none !important; }
+  body.mobile-model-mode .stage-header-actions { display: contents !important; }
+  body.mobile-model-mode .canvas-wrap {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+  body.mobile-model-mode #scene { width: 100% !important; height: 100% !important; }
+  body.mobile-model-mode .mobile-model-toggle {
+    position: fixed;
+    z-index: 1200;
+    top: max(10px, env(safe-area-inset-top));
+    right: 12px;
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: 1px solid #aab8c5;
+    border-radius: 50%;
+    background: white;
+    color: #172b3d;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 22%);
+    font-size: 30px;
+    line-height: 1;
+  }
+  body.mobile-model-mode .scene-caption { top: max(12px, env(safe-area-inset-top)); left: 12px; right: 72px; max-width: none; }
+  body.mobile-model-mode .scene-hint { bottom: max(16px, env(safe-area-inset-bottom)); }
+  body.mobile-model-mode .inspection-backdrop { z-index: 1100; }
+}
