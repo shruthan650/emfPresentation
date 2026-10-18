@@ -39,5 +39,10 @@ export function initUI({onChange,onPresenterToggle}){
   mobileModelToggle.setAttribute('aria-label',active?'Exit full-screen 3D view':'Open full-screen 3D models');
   window.dispatchEvent(new Event('resize'));
  });
+ document.querySelector('#mobile-model-exit')?.addEventListener('click',()=>{
+  document.body.classList.remove('mobile-model-mode');
+  if(mobileModelToggle){mobileModelToggle.setAttribute('aria-pressed','false');mobileModelToggle.textContent='3D models';mobileModelToggle.setAttribute('aria-label','Open full-screen 3D models');}
+  window.dispatchEvent(new Event('resize'));
+ });
  tabs.forEach(t=>t.addEventListener('click',()=>select(t.dataset.structure)));presenter.addEventListener('click',()=>{const active=document.body.classList.toggle('presenter-mode');presenter.setAttribute('aria-pressed',String(active));onPresenterToggle?.(active)});document.querySelector('#figure-close').addEventListener('click',()=>document.querySelector('#figure-card').hidden=true);select('tall');return {select,lessons};
 }
