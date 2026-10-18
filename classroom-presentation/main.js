@@ -268,6 +268,10 @@ function scheduleResize() {
 }
 new ResizeObserver(scheduleResize).observe(stage);
 window.addEventListener('resize', scheduleResize);
+window.addEventListener('orientationchange', () => {
+  // Mobile browsers can report the new viewport one frame after rotation.
+  requestAnimationFrame(() => requestAnimationFrame(scheduleResize));
+});
 scheduleResize();
 
 const clock = new THREE.Clock();
