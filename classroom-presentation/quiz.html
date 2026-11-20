@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f6f8">
+  <title>Quiz | Organizational Structures</title>
+  <link rel="stylesheet" href="./overview-pages.css">
+  <style>
+    .quiz-score{position:sticky;top:64px;z-index:50;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:30px;padding:16px 20px;border:1px solid #cbd6df;border-radius:16px;background:rgba(255,255,255,.97);box-shadow:0 10px 28px #183f6014}
+    .quiz-score strong{color:#173f60;font-size:20px}
+    .quiz-score span{color:#334155;font-size:16px;font-weight:650}
+    .quiz-progress{flex:1 1 220px;height:10px;border-radius:999px;background:#e4eef5;overflow:hidden}
+    .quiz-progress i{display:block;width:0;height:100%;background:#34769e;transition:width .25s ease}
+    .quiz-section h2 small{display:block;margin-top:4px;color:#334155;font-size:16px;font-weight:600;letter-spacing:0}
+    .quiz-q{margin-top:18px;padding:20px;border:1px solid #d3dde5;border-radius:16px;background:#f8fafb}
+    .quiz-q h3{margin:0 0 14px;color:#17212b;font-size:19px;line-height:1.45}
+    .quiz-q h3 b{color:#34769e;margin-right:6px}
+    .quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .quiz-options button{min-height:52px;padding:12px 14px;border:1px solid #bfccd6;border-radius:12px;background:#fff;color:#1e3447;font:600 16px/1.4 inherit;font-family:inherit;text-align:left;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+    .quiz-options button:hover:not(:disabled),.quiz-options button:focus-visible{border-color:#34769e;background:#edf4f8;outline:none}
+    .quiz-options button:disabled{cursor:default}
+    .quiz-options button.correct{border-color:#2f8a57;background:#e5f4ec;color:#14532d}
+    .quiz-options button.wrong{border-color:#b94a48;background:#fbeaea;color:#7f1d1d}
+    .quiz-feedback{display:none;margin:14px 0 0;padding:12px 14px;border-left:4px solid #34769e;border-radius:6px 10px 10px 6px;background:#e8f1f6;color:#172b3d;font-size:16px;line-height:1.5}
+    .quiz-q.answered .quiz-feedback{display:block}
+    button.overview-button{font-family:inherit;cursor:pointer}
+    .quiz-result{display:none}
+    .quiz-result.show{display:block}
+    @media(max-width:760px){.quiz-score{top:52px}.quiz-options{grid-template-columns:1fr}.quiz-q{padding:16px}.quiz-q h3{font-size:17px}}
+  </style>
+</head>
+<body class="overview-page">
+  <nav class="page-nav" aria-label="Presentation pages">
+    <a href="./introduction.html">Introduction</a>
+    <a href="./index.html">3D Presentation</a>
+    <a href="./conclusion.html">Conclusion</a>
+    <a class="is-current" href="./quiz.html" aria-current="page">Quiz</a>
+  </nav>
+  <main class="overview-wrap">
+    <p class="overview-kicker">Organizational structures · knowledge check</p>
+    <h1 class="overview-title">Test your understanding</h1>
+    <p class="overview-lead">Answer each question to see instant feedback. The quiz covers the structural dimensions and the four structures in this presentation: Tall, Flat, Network, and Virtual.</p>
+
+    <div class="quiz-score" aria-live="polite">
+      <strong id="score">Score: 0 / 0</strong>
+      <div class="quiz-progress" aria-hidden="true"><i id="progress"></i></div>
+      <span id="answered">0 answered</span>
+    </div>
+
+    <div id="quiz"></div>
+
+    <section class="overview-panel quiz-result" id="result" aria-live="polite">
+      <h2>Quiz complete</h2>
+      <p class="overview-panel-intro" id="result-text"></p>
+      <div class="overview-actions">
+        <button class="overview-button" type="button" id="retry">Try again</button>
+        <a class="overview-button secondary" href="./conclusion.html">Go to conclusion</a>
+      </div>
+    </section>
+
+    <footer class="overview-footer">Organizational Structures · Tall · Flat · Network · Virtual</footer>
+  </main>
+
+  <script>
+    const sections = [
+      { title: "Fundamentals", sub: "Structural dimensions framework", qs: [
+        { q: "What does “span of control” describe?", o: ["The number of management layers in a firm", "The number of direct reports a manager supervises", "How many rules are written down", "Where decision authority sits"], a: 1, e: "Span of control is the number of direct reports or subordinates a manager directly supervises." },
+        { q: "The degree to which rules, procedures, and job descriptions are written down and standardized is called…", o: ["Centralization", "Departmentalization", "Formalization", "Chain of command"], a: 2, e: "Formalization measures how standardized and documented rules, procedures, and communications are." },
+        { q: "The continuous line of authority from the top of the organization to the lowest level is the…", o: ["Chain of command (scalar principle)", "Span of control", "Matrix", "Boundary permeability"], a: 0, e: "The chain of command (scalar principle) clarifies who reports to whom from top to bottom." },
+        { q: "Which classical scholars laid the foundations of rigid hierarchies and the traditional tall structure?", o: ["Drucker and Mintzberg", "McGregor and Likert", "Max Weber and Henri Fayol", "Williamson and Welch"], a: 2, e: "Weber’s Theory of Bureaucracy and Fayol’s Administrative Theory emphasized hierarchy, scalar chains, and centralized control." }
+      ]},
+      { title: "Tall structure", sub: "Hierarchical model", qs: [
+        { q: "A tall structure typically has which span of control?", o: ["Wide (10–30+ reports)", "Narrow (3–6 reports)", "Variable, based on partner units", "No managers at all"], a: 1, e: "Tall structures use narrow spans of control, with managers overseeing about 3 to 6 direct reports." },
+        { q: "Which is a key limitation of the tall structure?", o: ["Limited promotion opportunities", "Slow decision-making from multi-layered approvals", "Dependence on external vendors", "Screen fatigue"], a: 1, e: "Bureaucratic inertia: many approval layers delay responses to market changes. Long chains also distort communication." },
+        { q: "Which organization is the best fit for a tall structure?", o: ["An early-stage tech startup", "An open-source software project", "A government agency or military branch", "A creative design studio"], a: 2, e: "Tall structures suit stable, regulated, or safety-critical settings such as government, military, banking, and large-scale manufacturing." }
+      ]},
+      { title: "Flat structure", sub: "Horizontal model", qs: [
+        { q: "Which management theory is the flat structure most closely linked to?", o: ["McGregor’s Theory Y", "Weber’s Bureaucratic Model", "Transaction Cost Economics", "Fayol’s Scalar Chain"], a: 0, e: "Theory Y assumes people are self-motivated and responsible when given autonomy, which flat structures put into practice." },
+        { q: "A major advantage of a flat structure is…", o: ["Tight operational control", "Rapid decision-making and high agility", "Many vertical promotion ladders", "Very high formalization"], a: 1, e: "With few management tiers, administrative bottlenecks disappear and teams can adapt quickly." },
+        { q: "Jo Freeman’s “The Tyranny of Structurelessness” warns flat organizations about…", o: ["High real-estate costs", "Vendor failure", "Informal hierarchies and power vacuums", "Too many middle managers"], a: 2, e: "Without formal authority, unstated and unvetted informal power dynamics can emerge." }
+      ]},
+      { title: "Network structure", sub: "Modular / hollow organization", qs: [
+        { q: "The network structure is mainly built on which theory?", o: ["Theory Y", "Transaction Cost Economics (Williamson)", "Theory of Bureaucracy", "Participative Management"], a: 1, e: "TCE says firms should outsource when external providers can do the work at lower cost; the core keeps only value-generating capabilities." },
+        { q: "What is the core architecture of a network organization?", o: ["A deep pyramid", "A hub-and-spoke model coordinating external partners", "A single team with no leader", "Several equal divisions"], a: 1, e: "A small central hub coordinates independent vendors, suppliers, and service providers through contracts." },
+        { q: "In a network structure, work with partners is mainly governed by…", o: ["Direct supervision", "Internal SOP manuals", "Contracts and Service Level Agreements (SLAs)", "Informal peer agreement"], a: 2, e: "Network formalization is contract-driven: SLAs, legally binding contracts, and shared technology interfaces." },
+        { q: "Which company example fits the network structure?", o: ["Nike outsourcing manufacturing to global factories", "A national army", "A local family shop", "A traditional commercial bank branch"], a: 0, e: "Nike focuses on design and brand while contracting manufacturing to external factories." }
+      ]},
+      { title: "Virtual structure", sub: "Boundaryless / digital network", qs: [
+        { q: "The virtual organization extends the “boundaryless organization” idea associated with…", o: ["Henri Fayol", "Jack Welch", "Douglas McGregor", "Max Weber"], a: 1, e: "Former GE CEO Jack Welch introduced the boundaryless organization concept." },
+        { q: "What does “follow-the-sun” mean for a virtual organization?", o: ["Working only in daylight", "Continuous work cycles across time zones", "Relocating staff to sunny regions", "Holding all meetings at noon"], a: 1, e: "Global distribution lets work and customer support continue round the clock as different regions take over." },
+        { q: "In a Results-Oriented Work Environment (ROWE), performance is judged by…", o: ["Hours logged in the office", "Physical presence", "Deliverables and goal achievement", "Seniority"], a: 2, e: "ROWE evaluates concrete deliverables and output quality rather than presence or hours." },
+        { q: "Which is a key risk of a virtual structure?", o: ["High office lease costs", "Too many management layers", "Cultural isolation and cybersecurity vulnerabilities", "Slow vendor switching"], a: 2, e: "Remote work can weaken cohesion, and distributed devices and access points widen the attack surface." }
+      ]},
+      { title: "Compare & apply", sub: "Matching structure to context", qs: [
+        { q: "Which structure has the highest fixed overhead costs from management salaries?", o: ["Tall", "Flat", "Network", "Virtual"], a: 0, e: "Maintaining many tiers of management makes tall structures the most expensive in fixed overhead." },
+        { q: "A fast-growing startup needs quick decisions and empowered staff. Which structure fits best?", o: ["Tall", "Flat", "Network", "Virtual"], a: 1, e: "Flat structures thrive in fast-paced, innovative environments where speed and empowerment matter." },
+        { q: "A firm keeps a flat, virtual R&D team but a tall structure for compliance. This is called a…", o: ["Pure network structure", "Bureaucracy", "Hybrid structure", "Hollow organization"], a: 2, e: "Modern enterprises often combine models, using each where it fits best." }
+      ]}
+    ];
+
+    const quizEl = document.getElementById("quiz");
+    const total = sections.reduce((n, s) => n + s.qs.length, 0);
+    let correct = 0, answered = 0, num = 0;
+
+    function render() {
+      correct = 0; answered = 0; num = 0;
+      quizEl.innerHTML = "";
+      document.getElementById("result").classList.remove("show");
+      sections.forEach((s, si) => {
+        const sec = document.createElement("section");
+        sec.className = "overview-panel quiz-section";
+        sec.setAttribute("aria-labelledby", "qs-" + si);
+        sec.innerHTML = `<h2 id="qs-${si}">${s.title}<small>${s.sub}</small></h2>`;
+        s.qs.forEach(item => {
+          num++;
+          const q = document.createElement("div");
+          q.className = "quiz-q";
+          q.innerHTML = `<h3><b>Q${num}.</b>${item.q}</h3><div class="quiz-options" role="group"></div><p class="quiz-feedback"></p>`;
+          const opts = q.querySelector(".quiz-options");
+          item.o.forEach((text, oi) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.textContent = text;
+            b.addEventListener("click", () => choose(q, item, oi));
+            opts.appendChild(b);
+          });
+          sec.appendChild(q);
+        });
+        quizEl.appendChild(sec);
+      });
+      update();
+    }
+
+    function choose(q, item, oi) {
+      if (q.classList.contains("answered")) return;
+      q.classList.add("answered");
+      const buttons = q.querySelectorAll("button");
+      buttons.forEach(b => b.disabled = true);
+      buttons[item.a].classList.add("correct");
+      const ok = oi === item.a;
+      if (!ok) buttons[oi].classList.add("wrong");
+      q.querySelector(".quiz-feedback").innerHTML = `<strong>${ok ? "Correct!" : "Not quite."}</strong> ${item.e}`;
+      answered++; if (ok) correct++;
+      update();
+    }
+
+    function update() {
+      document.getElementById("score").textContent = `Score: ${correct} / ${answered}`;
+      document.getElementById("answered").textContent = `${answered} of ${total} answered`;
+      document.getElementById("progress").style.width = (answered / total * 100) + "%";
+      if (answered === total) {
+        const pct = Math.round(correct / total * 100);
+        const msg = pct >= 80 ? "Excellent work — you have a strong grasp of organizational structures."
+          : pct >= 50 ? "Good effort — review the structures you missed and try again."
+          : "Revisit the presentation and try again to strengthen your understanding.";
+        document.getElementById("result-text").textContent = `You scored ${correct} out of ${total} (${pct}%). ${msg}`;
+        document.getElementById("result").classList.add("show");
+      }
+    }
+
+    document.getElementById("retry").addEventListener("click", () => { render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+    render();
+  </script>
+</body>
+</html>
