@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/quiz.html", "destination": "/introduction.html", "permanent": false },
+    { "source": "/quiz", "destination": "/introduction.html", "permanent": false }
+  ]
+}
