@@ -32,3 +32,76 @@
 .overview-footer{margin-top:30px;color:#334155;font-size:15px}
 @media(max-width:760px){.page-nav{position:sticky;top:0;right:auto;justify-content:center;margin:0;padding:7px;border-width:0 0 1px;border-radius:0}.page-nav a{flex:1;padding:0 8px;font-size:13px}.overview-wrap{width:min(100% - 32px,600px);padding:38px 0 44px}.overview-panel{padding:22px}.team-grid{grid-template-columns:1fr 1fr}.conclusion-grid{grid-template-columns:1fr}}
 @media(max-width:460px){.team-grid{grid-template-columns:1fr}.team-member{min-height:72px}.overview-chips li{font-size:14px}}
+
+/* Consistent navigation and content spacing across overview, conclusion,
+   and quiz pages. These rules prevent the fixed nav and sticky quiz status
+   from covering headings or controls. */
+@media (max-width: 760px) {
+  .overview-page .page-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 3px;
+    z-index: 500;
+    margin: 0;
+    padding: 5px;
+    border-width: 0 0 1px;
+    border-radius: 0;
+  }
+  .overview-page .page-nav a {
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    padding: 6px 4px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .overview-wrap { padding-top: 28px; }
+  .overview-title { font-size: clamp(34px, 11vw, 52px); }
+  .overview-lead { font-size: 18px; line-height: 1.5; }
+  .overview-actions { display: grid; grid-template-columns: 1fr; }
+  .overview-button { width: 100%; text-align: center; }
+  .quiz-score { top: 58px; }
+}
+
+@media (max-width: 420px) {
+  .overview-page .page-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .overview-page .page-nav a { min-height: 36px; font-size: 12px; }
+  .overview-wrap { width: calc(100% - 24px); padding-top: 22px; }
+  .overview-title { font-size: clamp(32px, 12vw, 44px); }
+  .overview-panel { padding: 18px; }
+  .conclusion-card { padding: 18px; }
+  .conclusion-card h3 { font-size: 20px; }
+  .conclusion-card p { font-size: 16px; }
+  .quiz-score { top: 82px; }
+}
+
+/* Classroom projection type scale */
+@media (min-width: 951px) {
+  .page-nav { right: 16px; }
+  .page-nav a { min-height: 44px; padding-inline: 18px; font-size: 17px; }
+  .overview-kicker { font-size: 18px; }
+  .overview-title { font-size: clamp(58px, 5.6vw, 86px); }
+  .overview-lead { max-width: 1040px; font-size: 28px; line-height: 1.55; }
+  .overview-chips li { font-size: 18px; }
+  .overview-panel h2 { font-size: 42px; }
+  .overview-panel-intro { font-size: 22px; }
+  .conclusion-card h3 { font-size: 26px; }
+  .conclusion-card p { font-size: 21px; line-height: 1.6; }
+  .team-name { font-size: 22px; }
+  .team-id { font-size: 17px; }
+  .overview-button { min-height: 60px; font-size: 21px; }
+  .takeaway { font-size: 23px; }
+  .overview-footer { font-size: 17px; }
+  .quiz-score strong { font-size: 23px; }
+  .quiz-score span { font-size: 19px; }
+  .quiz-section h2 { font-size: 42px; }
+  .quiz-section h2 small { font-size: 19px; }
+  .quiz-q h3 { font-size: 23px; }
+  .quiz-options button { min-height: 62px; font-size: 19px; }
+  .quiz-feedback { font-size: 19px; }
+}

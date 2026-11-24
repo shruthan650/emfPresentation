@@ -8,3 +8,53 @@
 .accordion-trigger{font-size:clamp(20px,2.2vw,30px)!important}.inspection-backdrop{pointer-events:auto!important}
 .accordion-trigger{font-size:clamp(20px,2.2vw,30px)!important}.inspection-backdrop{pointer-events:auto!important}
 .greeting-line{margin:0 0 14px;padding:10px 12px;border-radius:9px;background:#e8f2f8;border-left:4px solid #1769aa;color:#102b42;font-size:19px;font-weight:800}.greeting-line[hidden]{display:none}
+
+/* Shared presentation layout guards.
+   Keep the 3D stage and lesson bounded to the viewport on wide screens,
+   while allowing each side to scroll independently if needed. */
+@media (min-width: 951px) {
+  body:not(.overview-page) { height: 100vh; overflow: hidden; }
+  body:not(.overview-page) .app-shell { height: 100vh; min-height: 0; }
+  body:not(.overview-page) .stage { height: 100vh; min-height: 0; overflow: hidden; }
+  body:not(.overview-page) .canvas-wrap { min-height: 300px; }
+  body:not(.overview-page) .lesson-panel { height: 100vh; min-height: 0; overflow-y: auto; }
+  body:not(.overview-page) .page-nav { top: 12px; }
+}
+
+/* Larger classroom presentation text */
+@media (min-width: 951px) {
+  :root { font-size: 24px; }
+  body:not(.overview-page) .page-nav {
+    top: 12px;
+    right: 16px;
+    height: 54px;
+    align-items: center;
+  }
+  body:not(.overview-page) .page-nav a { min-height: 44px; font-size: 17px; }
+  body:not(.overview-page) .lesson-panel {
+    padding-top: 82px;
+  }
+  .stage h1 { font-size: clamp(38px, 3.2vw, 52px); }
+  .stage-header .eyebrow,
+  .lesson-heading .eyebrow { font-size: 16px; }
+  .presenter-toggle { min-height: 52px; font-size: 18px; }
+  .structure-tab { min-height: 50px; font-size: 20px; }
+  .room-nav button,
+  .birdseye-button { min-height: 44px; font-size: 17px; }
+  .scene-caption,
+  .scene-hint { font-size: 17px; }
+  .lesson-heading h2 { font-size: clamp(38px, 3.2vw, 48px); }
+  .lesson-deck { font-size: 24px; line-height: 1.5; }
+  .metric-label { font-size: 16px; }
+  .metric-value { font-size: 22px; }
+  .accordion-trigger { min-height: 68px; font-size: clamp(22px, 2.1vw, 30px) !important; }
+  .accordion-content { font-size: 22px !important; line-height: 1.55; }
+  .interaction-note p { font-size: 19px; }
+  .stage-footer { font-size: 17px; }
+  .inspection-modal { width: min(460px, 38vw); }
+  .inspection-modal h2 { font-size: 30px; }
+  .inspection-role { font-size: 22px; }
+  .inspection-modal dt { font-size: 18px; }
+  .inspection-modal dd { font-size: 21px; }
+  .greeting-line { font-size: 22px; }
+}

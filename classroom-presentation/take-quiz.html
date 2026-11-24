@@ -27,7 +27,17 @@
     button.overview-button{font-family:inherit;cursor:pointer}
     .quiz-result{display:none}
     .quiz-result.show{display:block}
-    @media(max-width:760px){.quiz-score{top:52px}.quiz-options{grid-template-columns:1fr}.quiz-q{padding:16px}.quiz-q h3{font-size:17px}}
+    @media(max-width:760px){.quiz-score{top:58px}.quiz-options{grid-template-columns:1fr}.quiz-q{padding:16px}.quiz-q h3{font-size:17px}}
+    @media(max-width:420px){.quiz-score{top:82px}}
+    @media(min-width:951px){
+      .quiz-score strong{font-size:23px}
+      .quiz-score span{font-size:19px}
+      .quiz-section h2{font-size:42px}
+      .quiz-section h2 small{font-size:19px}
+      .quiz-q h3{font-size:23px}
+      .quiz-options button{min-height:62px;font-size:19px}
+      .quiz-feedback{font-size:19px}
+    }
   </style>
 </head>
 <body class="overview-page">
