@@ -13,11 +13,11 @@
    Keep the 3D stage and lesson bounded to the viewport on wide screens,
    while allowing each side to scroll independently if needed. */
 @media (min-width: 951px) {
-  body:not(.overview-page) { height: 100vh; overflow: hidden; }
-  body:not(.overview-page) .app-shell { height: 100vh; min-height: 0; }
-  body:not(.overview-page) .stage { height: 100vh; min-height: 0; overflow: hidden; }
-  body:not(.overview-page) .canvas-wrap { min-height: 300px; }
-  body:not(.overview-page) .lesson-panel { height: 100vh; min-height: 0; overflow-y: auto; }
+  body:not(.overview-page) { height: 100dvh; overflow: hidden; }
+  body:not(.overview-page) .app-shell { height: calc(100dvh - 68px); min-height: 0; }
+  body:not(.overview-page) .stage { height: 100%; min-height: 0; overflow: hidden; }
+  body:not(.overview-page) .canvas-wrap { min-height: 250px; }
+  body:not(.overview-page) .lesson-panel { height: 100%; min-height: 0; overflow-x: hidden; overflow-y: auto; }
   body:not(.overview-page) .page-nav { top: 12px; }
 }
 
@@ -25,15 +25,16 @@
 @media (min-width: 951px) {
   :root { font-size: 24px; }
   body:not(.overview-page) .page-nav {
-    top: 12px;
-    right: 16px;
-    height: 54px;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    height: auto;
+    margin: 12px 16px 12px auto;
     align-items: center;
   }
   body:not(.overview-page) .page-nav a { min-height: 44px; font-size: 17px; }
-  body:not(.overview-page) .lesson-panel {
-    padding-top: 82px;
-  }
   .stage h1 { font-size: clamp(38px, 3.2vw, 52px); }
   .stage-header .eyebrow,
   .lesson-heading .eyebrow { font-size: 16px; }
@@ -57,4 +58,71 @@
   .inspection-modal dt { font-size: 18px; }
   .inspection-modal dd { font-size: 21px; }
   .greeting-line { font-size: 22px; }
+}
+
+/* Responsive desktop guard: prevent fixed-size text and controls from
+   colliding when the browser window or display zoom changes. */
+@media (min-width: 951px) {
+  body:not(.overview-page) .stage-header {
+    flex-wrap: nowrap;
+  }
+  body:not(.overview-page) .structure-tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+  body:not(.overview-page) .room-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  body:not(.overview-page) .room-nav {
+    min-width: 0;
+  }
+  body:not(.overview-page) .lesson-heading,
+  body:not(.overview-page) .metrics,
+  body:not(.overview-page) .accordion,
+  body:not(.overview-page) .interaction-note {
+    max-width: 100%;
+  }
+  body:not(.overview-page) .accordion-trigger {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (min-width: 951px) and (max-width: 1250px) {
+  body:not(.overview-page) .app-shell {
+    grid-template-columns: minmax(0, 1.25fr) minmax(360px, .75fr);
+  }
+  body:not(.overview-page) .stage {
+    padding: 20px 18px 14px;
+  }
+  body:not(.overview-page) .stage h1 {
+    font-size: clamp(30px, 3vw, 38px);
+  }
+  body:not(.overview-page) .lesson-panel {
+    padding: 22px 22px;
+  }
+  body:not(.overview-page) .lesson-heading h2 {
+    font-size: clamp(32px, 3vw, 38px);
+  }
+  body:not(.overview-page) .lesson-deck {
+    font-size: 21px;
+  }
+  body:not(.overview-page) .structure-tab {
+    min-height: 44px;
+    padding: 9px 12px;
+    font-size: 17px;
+  }
+  body:not(.overview-page) .room-nav button,
+  body:not(.overview-page) .birdseye-button {
+    min-height: 40px;
+    padding: 7px 9px;
+    font-size: 14px;
+  }
+  body:not(.overview-page) .accordion-trigger {
+    min-height: 56px;
+    font-size: 20px !important;
+  }
+  body:not(.overview-page) .accordion-content {
+    font-size: 18px !important;
+  }
 }
